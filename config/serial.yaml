@@ -1,0 +1,13 @@
+# Example configuration for rccar.serial_client.client.SerialClient.
+#
+# port: placeholder — real device path is TBD per project's open questions
+#   (depends on which USB/UART adapter the MCU shows up as on the target Pi).
+# baud: 9600 is a conservative default that most MCU firmware/bootloaders
+#   support out of the box; bump this once the MCU-side UART rate is pinned
+#   down (e.g. 115200 for higher-rate command streaming).
+# timeout: write timeout in seconds, passed through to pyserial's
+#   write_timeout so a stuck write fails fast instead of hanging forever.
+
+port: /dev/ttyUSB0
+baud: 9600
+timeout: 1.0

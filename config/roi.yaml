@@ -1,0 +1,16 @@
+# Fixed near-field trapezoid ROI, expressed in pixel coordinates for the
+# reference frame size below. The trapezoid is wide at the bottom (close to
+# the car, where the road fills the frame) and narrows toward a horizon-ish
+# line partway up the frame, so it samples "road directly ahead" without
+# picking up sky/background above the horizon.
+#
+# Points are ordered bottom-left -> bottom-right -> top-right -> top-left,
+# which is a valid (non-self-intersecting) polygon winding for cv2.fillPoly.
+frame_width: 320
+frame_height: 240
+
+points:
+  - [20, 240]    # bottom-left
+  - [300, 240]   # bottom-right
+  - [200, 150]   # top-right
+  - [120, 150]   # top-left

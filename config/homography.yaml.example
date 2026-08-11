@@ -1,0 +1,20 @@
+# Example output of scripts/calibrate_camera.py -- copy to
+# config/homography.yaml after running a real calibration (do not use
+# these placeholder values, they are not derived from a real camera).
+#
+# `homography` maps camera pixel coordinates to ground-plane
+# coordinates in cm: [X, Y, W]^T = homography @ [px, py, 1]^T, then
+# divide by W to get the ground-plane (X/W, Y/W) in cm.
+homography:
+  - [0.1875, 0.0, -30.0]
+  - [0.0, -0.5333, 128.0]
+  - [0.0, -0.0022, 1.0]
+
+calibration_date: "2026-08-10"
+image_width: 320
+image_height: 240
+units: cm
+notes: >
+  Maps camera pixel coordinates (x, y) to ground-plane coordinates
+  (x, y) in cm. Apply as: [X, Y, W]^T = homography @ [px, py, 1]^T,
+  then divide by W.
