@@ -1,0 +1,16 @@
+homography:
+- - -0.019507119884144945
+  - 0.03158580139821953
+  - -3.1568887716921084
+- - 0.05014579889314376
+  - -0.20261638738897397
+  - 28.371923204804748
+- - 0.0017975180973192242
+  - -0.006886207589543797
+  - 1.0
+calibration_date: '2026-08-14'
+image_width: 320
+image_height: 240
+units: cm
+notes: 'Maps camera pixel coordinates (x, y) to ground-plane coordinates (x, y) in
+  cm. Apply as: [X, Y, W]^T = homography @ [px, py, 1]^T, then divide by W.'
