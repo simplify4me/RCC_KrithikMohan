@@ -1,0 +1,22 @@
+# Temporal smoothing (T20) for rccar.decision.smoothing.MajorityVoteSmoother.
+#
+# window_size:
+#   Number of most-recent per-frame decision outputs (e.g. SpeedTier
+#   values) kept in the smoother's ring buffer and voted over. A single
+#   noisy/flickering frame (one bad detection) should not be enough to
+#   flip the car's commanded speed tier or steer -- the majority vote over
+#   this window absorbs that.
+#
+#   3 is chosen deliberately as an ODD number: with an odd window size and
+#   only two "live" candidate values in most practical flicker cases (e.g.
+#   STOP vs FULL alternating), a true tie is impossible once the window is
+#   full -- one value must have strictly more than half the votes. (A tie
+#   *can* still happen transiently while the buffer is still filling up,
+#   e.g. after just 2 distinct updates -- see MajorityVoteSmoother's
+#   documented startup/tie-break behavior for how that's handled.) 3 is
+#   also small enough to keep latency low (only 3 frames ~ well under a
+#   second at typical camera frame rates), unlike a larger even window
+#   which would both add latency and reintroduce the possibility of a
+#   genuine 50/50 tie at full-buffer steady state.
+
+window_size: 3

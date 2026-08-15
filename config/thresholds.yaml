@@ -1,0 +1,22 @@
+# Speed-tier decision thresholds (T18) for
+# rccar.decision.speed.decide_speed_tier.
+#
+# stop_distance_cm:
+#   Nearest-obstacle real-world distance (cm) below which the car must
+#   come to a full STOP. 30cm gives a small RC chassis enough margin to
+#   halt before contact, accounting for detector latency and a frame or
+#   two of control-loop lag.
+#
+# slow_distance_cm:
+#   Nearest-obstacle real-world distance (cm) below which the car should
+#   proceed at reduced (SLOW) speed rather than FULL speed, so it has time
+#   to react if the obstacle is closing or a new one appears. 100cm is a
+#   conservative "start being careful" distance for typical indoor/close
+#   quarters operation; tune per chassis speed/braking distance once real
+#   on-car data is available.
+#
+# Both thresholds use strict "<" comparisons in decide_speed_tier -- see
+# that function's docstring for which side of each boundary wins.
+
+stop_distance_cm: 30.0
+slow_distance_cm: 100.0

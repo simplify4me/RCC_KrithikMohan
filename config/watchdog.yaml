@@ -1,0 +1,2 @@
+# Watchdog config (T24): stale frame / processing stall / serial failure -> forced stop.
+frame_timeout_ms: 500

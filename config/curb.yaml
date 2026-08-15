@@ -1,0 +1,26 @@
+# Config for rccar.curb.confidence.CurbConfidenceTracker (T12).
+#
+# confidence_window_n:
+#   Number of recent frames the tracker looks at when deciding whether the
+#   curb has gone missing. The tracker flips from "tracking" to "fallback"
+#   (lane-center driving) only after confidence_window_n + 1 CONSECUTIVE
+#   frames with no curb found -- one frame of missed detection (a flicker,
+#   a momentary occlusion) should not cause the car to abandon curb-follow
+#   mode. 5 frames gives a little over one buffer frame of slack at a
+#   typical control-loop rate without being so large that the car keeps
+#   trying to curb-follow long after the curb is actually gone.
+#
+# min_confidence_threshold:
+#   Minimum per-frame confidence (as returned by
+#   rccar.curb.detect.detect_curb_side) required for a frame to count as
+#   "found". detect_curb_side's confidence formula
+#   (margin * length_factor, see src/rccar/curb/detect.py) produces low
+#   values (well under 0.2) for short, ambiguous, or barely-dominant line
+#   candidates -- the kind of noisy detections we do NOT want triggering
+#   curb-follow mode. 0.2 was chosen as a threshold that rejects that noisy
+#   low end while still accepting a moderately long, moderately dominant
+#   line, which is the realistic signal quality expected from the Hough
+#   stub on a real curb.
+
+confidence_window_n: 5
+min_confidence_threshold: 0.2

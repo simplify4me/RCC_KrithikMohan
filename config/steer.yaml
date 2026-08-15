@@ -1,0 +1,25 @@
+# Steering-from-curb-offset configuration (T19).
+#
+# target_offset_cm: how far (in cm) the car should try to stay from the
+#   tracked curb line, measured laterally. 30cm is chosen as a reasonable
+#   safety margin for a small RC chassis: close enough to use the curb as a
+#   reliable lane reference, far enough to avoid clipping the curb on a
+#   bumpy surface or a momentary offset-estimate error. Tune per chassis
+#   width / camera calibration once real offset data is available.
+target_offset_cm: 30.0
+
+# steer_min / steer_max: hard clamp bounds, matching the serial protocol's
+# `steer` field range (docs/serial_protocol.md section 3.2): signed integer
+# in [-100, 100], negative = left, positive = right.
+steer_min: -100
+steer_max: 100
+
+# gain: proportional gain converting a lateral offset error (cm) into a
+# steer unit. gain=2.0 means 1cm of lateral error produces 2 steer units
+# of correction (before clamping) -- e.g. a 25cm error saturates the full
+# +-100 range if not clamped, but should already be inside it given the
+# target of 30cm since realistic in-range offsets are within ~50cm of the
+# target. This is a starting default for a proportional-only controller
+# (no I/D terms in v1); it should be tuned against real steering response
+# during on-car calibration.
+gain: 2.0
