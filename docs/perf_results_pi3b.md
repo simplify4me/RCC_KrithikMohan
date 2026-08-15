@@ -14,41 +14,47 @@ python3 scripts/perf_smoke_test.py --source-file tests/fixtures/videos/<clip>.mp
 (Omit `--device-index` if no webcam is attached to the test rig; the file-source
 run alone still satisfies the gate.)
 
-## Status: NOT YET RUN
+=== T10 on-hardware FPS validation ===
+platform: Linux-6.18.39+rpt-rpi-v7-armv7l-with-glibc2.41
+machine:  armv7l
+python:   3.13.5
+pi model: Raspberry Pi 3 Model B Plus Rev 1.3
 
-This file is a template. Paste the actual script output below once run on
-real Pi hardware -- do not fill in placeholder numbers from a dev laptop.
+--- file: /home/pi/recordings/outing_2026-08-11_112525.mp4 ---
+frames processed:        100
+cold-start (1st frame):  181.5 ms
+steady-state duration:   14.33 s
+sustained FPS:           6.91
+verdict:                 PASS (gate: >= 5.0 FPS)
 
-## Hardware / software specs
+--- live: device 0 ---
+frames processed:        100
+cold-start (1st frame):  514.7 ms
+steady-state duration:   14.82 s
+sustained FPS:           6.68
+verdict:                 PASS (gate: >= 5.0 FPS)
 
-- Pi model:
-- OS / kernel:
-- Python version:
-- OpenCV version:
+=== Summary ===
+file: /home/pi/recordings/outing_2026-08-11_112525.mp4: 6.91 FPS (PASS)
+live: device 0: 6.68 FPS (PASS)
 
-## Results
+Overall: PASS (target range 5.0-10.0 FPS, hard floor 5.0 FPS)
 
-### File-source run
+=== T10 on-hardware FPS validation ===
+platform: Linux-6.18.39+rpt-rpi-v7-armv7l-with-glibc2.41
+machine:  armv7l
+python:   3.13.5
+pi model: Raspberry Pi 3 Model B Plus Rev 1.3
 
-- Fixture clip used:
-- Frames processed:
-- Cold-start (1st frame) latency:
-- Steady-state sustained FPS:
-- Verdict (PASS if >=5 FPS):
+--- live: device 0 ---
+frames processed:        100
+cold-start (1st frame):  528.8 ms
+steady-state duration:   14.65 s
+sustained FPS:           6.76
+verdict:                 PASS (gate: >= 5.0 FPS)
 
-### Live-camera run (if applicable)
+=== Summary ===
+live: device 0: 6.76 FPS (PASS)
 
-- Camera model:
-- Frames processed:
-- Cold-start (1st frame) latency:
-- Steady-state sustained FPS:
-- Verdict (PASS if >=5 FPS):
+Overall: PASS (target range 5.0-10.0 FPS, hard floor 5.0 FPS)
 
-## Overall verdict
-
-PASS / FAIL:
-
-## If FAIL: mitigation applied
-
-(e.g. frame skip, smaller ROI-only Hough, less frequent histogram rebuild)
-Describe what was changed and the re-measured FPS after the change.
