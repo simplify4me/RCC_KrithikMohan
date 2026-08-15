@@ -1,0 +1,9 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.mp4
+*.avi
+.idea/
+.pytest_cache/
+.gitconfig
