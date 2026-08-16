@@ -26,6 +26,6 @@
 #   label:             human-readable description of the marker.
 
 reference_points:
-  - image_point: [167, 212]
-    known_distance_cm: 12.7
+  - image_point: [253, 217]
+    known_distance_cm: 46
     label: "MEASURED value"
