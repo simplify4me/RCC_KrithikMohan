@@ -84,37 +84,43 @@ class FakeSerialClient:
 
 
 def _make_varying_video(path: str, num_frames: int) -> None:
-    """Short synthetic clip with per-frame varying solid colors, plus a
-    couple of frames with a simple rectangle so curb/obstacle detection
-    actually has some non-trivial structure to chew on (rather than every
-    frame being a flat color, which would make the parity check trivially
-    pass on constant output)."""
+    """Short synthetic clip with per-frame varying solid colors and obstacles
+    of different sizes, positioned to trigger both steer and speed variation
+    across frames so the parity test is non-vacuous."""
     width, height = FRAME_SIZE
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
     writer = cv2.VideoWriter(path, fourcc, 10.0, (width, height))
     assert writer.isOpened(), f"failed to open VideoWriter for {path}"
     try:
         for i in range(num_frames):
-            fill = (i * 33) % 256
-            frame = np.full((height, width, 3), fill_value=fill, dtype=np.uint8)
-            # Draw a diagonal-ish line/rectangle whose position shifts per
-            # frame, so detect_curb_side / detect_obstacles see varying
-            # structure across frames instead of nothing at all.
-            offset = (i * 15) % width
-            cv2.line(
-                frame,
-                (offset, height - 1),
-                (min(offset + 40, width - 1), 0),
-                (255, 255, 255),
-                2,
-            )
+            # Road-colored background (greenish)
+            frame = np.full((height, width, 3), (80, 100, 80), dtype=np.uint8)
+
+            # Vary obstacle size and position to trigger different obstacle distances
+            # and steer values across frames
+            obstacle_size = 5 + (i * 8) % 20  # obstacle grows/shrinks across frames
+            obstacle_x = 30 + (i * 25) % (width - obstacle_size)  # moves left/right
+            obstacle_y = 60 + (i * 10) % (height - obstacle_size)
+
+            # Draw dark obstacle (non-road color) with enough contrast
             cv2.rectangle(
                 frame,
-                (max(0, offset - 10), height // 2),
-                (min(width - 1, offset + 10), height - 1),
-                (0, 0, 0),
+                (obstacle_x, obstacle_y),
+                (obstacle_x + obstacle_size, obstacle_y + obstacle_size),
+                (20, 20, 20),  # dark color, clearly non-road
                 -1,
             )
+
+            # Draw a curb line that shifts side to trigger steer variation
+            curb_x = 40 + (i * 20) % (width - 60)  # moves across frame
+            cv2.line(
+                frame,
+                (curb_x, height - 1),
+                (curb_x + 30, 0),
+                (200, 200, 200),  # bright line (road edge marker)
+                3,
+            )
+
             writer.write(frame)
     finally:
         writer.release()
