@@ -26,6 +26,6 @@
 #   label:             human-readable description of the marker.
 
 reference_points:
-  - image_point: [160, 200]
-    known_distance_cm: 50.0
-    label: "PLACEHOLDER - replace with a real tape-measure reading before using this file"
+  - image_point: [167, 212]
+    known_distance_cm: 12.7
+    label: "MEASURED value"
